@@ -82,3 +82,4 @@ ___
 1. Currently deployed on an AWS EC2 instance with data imported already here: 
   - `http://3.129.60.49`
 1. If deployed on a VM, the security group must allow incoming TCP requests on port 80.
+1. Only tested on an Ubuntu machine - unfortunately cannot guarantee smooth deployment on all other operating systems

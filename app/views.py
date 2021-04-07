@@ -14,43 +14,31 @@ def index():
     return jsonify({"message": "👋🌎"})
 
 
-@api.route("/es", methods=["GET"])
-def es_test():
-    es = Elasticsearch(
-        hosts=[{"host": "host.docker.internal", "port": 9200}],
-        connection_class=RequestsHttpConnection,
-        max_retries=30,
-        retry_on_timeout=True,
-        request_timeout=30,
-    )
-    res = es.search(index="salary", body={"query": {"match_all": {}}})
-    return jsonify(res)
-
-
-@api.route("/stats", methods=["POST"])
+@api.route("/salary", methods=["GET", "POST"])
 def get_salary_statistics():
-    json_body = request.get_json()
-    if json_body:
-        location = json_body.get("location")
-        job_title = json_body.get("job_title")
-    else:
-        location = request.args.get("location")
-        job_title = request.args.get("job_title")
-
     query_filters = []
 
-    if location:
-        query_filters.append(
-            {"multi_match": {"query": location, "fields": ["city", "state"]}}
-        )
+    if request.method == "POST":
+        json_body = request.get_json()
+        if json_body:
+            location = json_body.get("location")
+            job_title = json_body.get("job_title")
+        else:
+            location = request.args.get("location")
+            job_title = request.args.get("job_title")
 
-    if job_title:
-        query_filters.append(
-            {"match": {"job_title": {"query": job_title, "fuzziness": "AUTO"}}}
-        )
+        if location:
+            query_filters.append(
+                {"multi_match": {"query": location, "fields": ["city", "state"]}}
+            )
+
+        if job_title:
+            query_filters.append(
+                {"match": {"job_title": {"query": job_title, "fuzziness": "AUTO"}}}
+            )
 
     es = Elasticsearch(
-        hosts=[{"host": "host.docker.internal", "port": 9200}],
+        hosts=[{"host": "elasticsearch", "port": 9200}],
         connection_class=RequestsHttpConnection,
         max_retries=30,
         retry_on_timeout=True,

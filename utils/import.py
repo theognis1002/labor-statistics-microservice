@@ -73,18 +73,26 @@ def doc_generator(df):
 
 def main():
     """ entrypoint for import script """
+    # get and transform data
+    print("Retrieving data from url... it make take up to 10-15 minutes depending on the available CPU/RAM.")
     data = get_data()
     transformed_data = transform_data(data)
     print(transformed_data.head())
 
+    # init elasticsearch connection
     es_client = Elasticsearch(
-        hosts=[{"host": "host.docker.internal", "port": 9200}],
+        hosts=[{"host": "elasticsearch", "port": 9200}],
         connection_class=RequestsHttpConnection,
         max_retries=30,
         retry_on_timeout=True,
         request_timeout=30,
         http_compress=True,
     )
+    # create elasticsearch index
+    print("Creating salary index...")
+    es_client.indices.create(index='salary', ignore=400)
+
+    # bulk import dataframe into elasticsearch using a generator
     print("Bulk importing rows into Elasticsearch.... Please wait.")
     helpers.bulk(es_client, doc_generator(transformed_data))
     print("Finished!")

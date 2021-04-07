@@ -65,12 +65,10 @@ def get_salary_statistics():
             },
             "size": 0,
             "aggs": {
-                "mean_salary": {"avg": {"field": "wage_rate"}},
-                "median_salary": {
-                    "percentiles": {"field": "wage_rate", "percents": [50]}
-                },
+                "mean_salary": {"avg": {"field": "salary"}},
+                "median_salary": {"percentiles": {"field": "salary", "percents": [50]}},
                 "salary_percentiles": {
-                    "percentiles": {"field": "wage_rate", "percents": [25, 75]}
+                    "percentiles": {"field": "salary", "percents": [25, 75]}
                 },
             },
         },

@@ -1,8 +1,8 @@
-import io
-import time
-
 import pandas as pd
-import requests
+from elasticsearch import Elasticsearch, RequestsHttpConnection, helpers
+
+
+final_columns = ["job_title", "city", "state", "salary"]
 
 
 def annualize_salary(row):
@@ -43,23 +43,51 @@ def transform_data(df):
     )
 
     # rename columns
-    df.columns = ["job_title", "city", "state", "salary"]
+    df.columns = final_columns
 
     return df
 
 
 def get_data():
     """retrieve data from url and ingest into pandas"""
-    url = "H_1B_Disclosure_Data_FY2019-1.xlsx"
-    # url = "https://www.foreignlaborcert.doleta.gov/pdf/PerformanceData/2019/H-1B_Disclosure_Data_FY2019.xlsx"
+    # url = "H_1B_Disclosure_Data_FY2019-sample.xlsx"  # sample dataset for testing purposes
+    url = "https://www.foreignlaborcert.doleta.gov/pdf/PerformanceData/2019/H-1B_Disclosure_Data_FY2019.xlsx"
     df = pd.read_excel(url)
     return df
 
 
+def filterKeys(document):
+    """ convert pandas dataframe to dict """
+    return {col: document[col] for col in final_columns}
+
+
+def doc_generator(df):
+    """ create generator for es bulk ingestion """
+    df_iter = df.iterrows()
+    for index, document in df_iter:
+        yield {
+            "_index": "salary",
+            "_source": filterKeys(document),
+        }
+
+
 def main():
+    """ entrypoint for import script """
     data = get_data()
     transformed_data = transform_data(data)
     print(transformed_data.head())
+
+    es_client = Elasticsearch(
+        hosts=[{"host": "host.docker.internal", "port": 9200}],
+        connection_class=RequestsHttpConnection,
+        max_retries=30,
+        retry_on_timeout=True,
+        request_timeout=30,
+        http_compress=True,
+    )
+    print("Bulk importing rows into Elasticsearch.... Please wait.")
+    helpers.bulk(es_client, doc_generator(transformed_data))
+    print("Finished!")
 
 
 if __name__ == "__main__":

@@ -3,12 +3,11 @@
 ### Dependencies
 1. docker
 1. docker-compose
-    - on Ubuntu, install with the following steps:
-      1. `chmod +x ./setup_env.sh`
-      1. `./setup_env.sh`
 ___
 ### Setup
-1. Install docker & docker-compose
+1. Install docker & docker-compose on Ubuntu machine
+    - `chmod +x ./setup_env.sh`
+    - `./setup_env.sh`
 1. `docker-compose up`
 1. In separate terminal, run import script in an interactive terminal:
     - `docker ps`
@@ -26,11 +25,11 @@ ___
     
     ###### Example cURLs:
     ```
-    curl --request POST \ --url 'http://localhost:5000/stats?location=NY&job_title=software'
+    curl --request POST \ --url 'http://localhost:5000/salary?location=NY&job_title=software'
     ```
     ```
     curl --request POST \
-    --url http://localhost:5000/stats \
+    --url http://localhost:5000/salary \
      --header 'Content-Type: application/json' \
      --data '{
     "job_title": "manager",

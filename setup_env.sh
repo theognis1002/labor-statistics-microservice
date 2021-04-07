@@ -1,5 +1,7 @@
 # Ask for the user password - script only works if sudo caches the password for a few minutes
 sudo true
+sudo apt-get upgrade -y && sudo apt-get update -y
+sudo apt-get install -y apt-utils && apt-get install -y curl
 
 # The official docker install script
 wget -qO- https://get.docker.com/ | sh
@@ -16,3 +18,12 @@ git clone https://gist.github.com/76b450a0c986e576e98b.git
 cd 76b450a0c986e576e98b
 sudo mv docker-cleanup /usr/local/bin/docker-cleanup
 sudo chmod +x /usr/local/bin/docker-cleanup
+
+# allow non-root to use docker
+sudo usermod -aG docker $USER
+newgrp docker 
+
+# check dependency versions
+docker --version
+docker-compose --version
+echo "Success!"

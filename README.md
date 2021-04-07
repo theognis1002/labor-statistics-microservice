@@ -17,7 +17,10 @@ ___
       - import script may take awhile depending on the amount of CPU/RAM available
 ___
 ### Usage
-
+1.  Endpoints
+    - /
+    - /salary
+    
 1.  Inputs *(may be sent as a json body or as query parameters)*:
 
     - Title query text (e.g. "software engineer" or "java")

@@ -3,9 +3,9 @@
 ### Dependencies
 1. docker
 1. docker-compose
-  - on Ubuntu, install with the following steps:
-    1. `chmod +x ./setup_env.sh`
-    1. `./setup_env.sh`
+    - on Ubuntu, install with the following steps:
+      1. `chmod +x ./setup_env.sh`
+      1. `./setup_env.sh`
 ___
 ### Setup
 1. Install docker & docker-compose

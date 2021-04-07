@@ -3,15 +3,19 @@
 ### Dependencies
 1. docker
 1. docker-compose
+  - on Ubuntu, install with the following steps:
+    1. `chmod +x ./setup_env.sh`
+    1. `./setup_env.sh`
 ___
 ### Setup
-
+1. Install docker & docker-compose
 1. `docker-compose up`
 1. In separate terminal, run import script in an interactive terminal:
     - `docker ps`
-        - get `container_id` for app service
+      - get `container_id` for app service
     - `docker exec -it <container_id> sh`
     - `python utils/import.py`
+      - import script may take awhile depending on the amount of CPU/RAM available
 ___
 ### Usage
 

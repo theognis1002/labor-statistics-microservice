@@ -36,7 +36,7 @@ ___
     "job_title": "manager",
     "location": "new york"
     }'
-```
+    ```
 
 1.  Outputs:
     -   Number of results

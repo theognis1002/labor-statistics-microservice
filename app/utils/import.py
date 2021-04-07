@@ -45,6 +45,9 @@ def transform_data(df):
     # rename columns
     df.columns = final_columns
 
+    # replace NaN with ""
+    df.fillna("")
+
     return df
 
 
@@ -74,7 +77,7 @@ def doc_generator(df):
 def main():
     """ entrypoint for import script """
     # get and transform data
-    print("Retrieving data from url... it make take up to 10-15 minutes depending on the available CPU/RAM.")
+    print("Retrieving data from url... it make take up to 10-15+ minutes depending on the available CPU/RAM.")
     data = get_data()
     transformed_data = transform_data(data)
     print(transformed_data.head())
@@ -94,7 +97,7 @@ def main():
 
     # bulk import dataframe into elasticsearch using a generator
     print("Bulk importing rows into Elasticsearch.... Please wait.")
-    helpers.bulk(es_client, doc_generator(transformed_data))
+    helpers.bulk(es_client, doc_generator(transformed_data), raise_on_error=False)
     print("Finished!")
 
 

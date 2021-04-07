@@ -56,8 +56,8 @@ def get_data():
     return df
 
 
-def filterKeys(document):
-    """ convert pandas dataframe to dict """
+def filter_keys(document):
+    """ convert pandas dataframe row to dict """
     return {col: document[col] for col in final_columns}
 
 
@@ -67,7 +67,7 @@ def doc_generator(df):
     for index, document in df_iter:
         yield {
             "_index": "salary",
-            "_source": filterKeys(document),
+            "_source": filter_keys(document),
         }
 
 

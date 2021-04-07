@@ -10,8 +10,9 @@ ___
     - `./setup_env.sh`
 1. `docker-compose up`
 1. In separate terminal, run import script in an interactive terminal:
+    - `sudo usermod -aG docker $USER && newgrp docker`
     - `docker ps`
-      - get `container_id` for app service
+      - get `<container_id>` for app service
     - `docker exec -it <container_id> sh`
     - `python utils/import.py`
       - import script may take awhile depending on the amount of CPU/RAM available

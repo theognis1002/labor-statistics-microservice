@@ -66,3 +66,16 @@ ___
       }
     }
     ```
+___
+### Additional Notes
+1. Technologies used:
+  - `docker`
+  - `docker-compose`
+  - `flask`
+  - `gunicorn`
+  - `Elasticsearch`
+  - `nginx`
+  - `AWS EC2`
+1. Currently deployed on an AWS EC2 instance with data imported already here: 
+  - `http://3.129.60.49`
+1. If deployed on a VM, the security group must allow incoming TCP requests on port 80.

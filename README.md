@@ -18,8 +18,8 @@ ___
 ___
 ### Usage
 1.  Endpoints
-    - /
-    - /salary
+    - `/`
+    - `/salary`
     
 1.  Inputs *(may be sent as a json body or as query parameters)*:
 

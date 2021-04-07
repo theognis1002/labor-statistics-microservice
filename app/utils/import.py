@@ -42,11 +42,9 @@ def transform_data(df):
         inplace=True,
     )
 
-    # rename columns
+    # rename column names and replace NaN with ""
     df.columns = final_columns
-
-    # replace NaN with ""
-    df.fillna("")
+    df = df.fillna("")
 
     return df
 

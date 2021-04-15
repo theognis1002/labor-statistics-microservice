@@ -7,7 +7,10 @@ services:
         environment:
             - FLASK_APP=app
             - FLASK_ENV=development
-        command: gunicorn --bind 0.0.0.0:5000 --chdir /code/ 'app:create_app()'
+        command:
+            - python utils/import.py
+            - gunicorn --bind 0.0.0.0:5000 --chdir /code/ 'app:create_app()'
+        restart: always
         volumes:
             - .:/code
         depends_on:
@@ -25,6 +28,7 @@ services:
             memlock:
                 soft: -1
                 hard: -1
+        restart: always
         volumes:
             - es-data:/usr/share/elasticsearch/data
         ports:

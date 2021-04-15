@@ -1,6 +1,5 @@
 # H1B Data FY2019 API
 
----
 ### Technologies Used
 -   `docker`
 -   `docker-compose`
@@ -8,8 +7,7 @@
 -   `gunicorn`
 -   `Elasticsearch`
 -   `nginx`
--   `AWS EC2`
--   
+---
 ### Dependencies
 
 1. docker

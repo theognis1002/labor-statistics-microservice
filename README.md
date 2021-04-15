@@ -1,5 +1,15 @@
 # H1B Data FY2019 API
 
+---
+### Technologies Used
+-   `docker`
+-   `docker-compose`
+-   `flask`
+-   `gunicorn`
+-   `Elasticsearch`
+-   `nginx`
+-   `AWS EC2`
+-   
 ### Dependencies
 
 1. docker
@@ -69,14 +79,5 @@
 
 ### Additional Notes
 
-1. Technologies used:
-
--   `docker`
--   `docker-compose`
--   `flask`
--   `gunicorn`
--   `Elasticsearch`
--   `nginx`
--   `AWS EC2`
 1. If deployed on a VM, the security group must allow incoming TCP requests on port 80.
 1. Only tested on an Ubuntu machine - unfortunately cannot guarantee smooth deployment on all other operating systems
